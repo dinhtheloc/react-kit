@@ -1,24 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { lazy } from 'react'
+import { Routes, Route } from 'react-router-dom';
+import SimpleLayout from './layout/Simple';
+
+
+// Route-based code splitting
+// Only pool is included in the main bundle because of it's the most visited page
+const Home = lazy(() => import('./views/Home'))
+const About = lazy(() => import('./views/About'))
+// const NotFound = lazy(() => import('./views/NotFound'))
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Routes>
+      <Route path="/" element={<SimpleLayout />}>
+        <Route index element={
+          <React.Suspense fallback={<>...</>}>
+            <Home />
+          </React.Suspense>
+        } />
+        <Route
+          path="about"
+          element={
+            <React.Suspense fallback={<>...</>}>
+              <About />
+            </React.Suspense>
+          }
+        />
+        {/* <Route path="*" element={<NoMatch />} /> */}
+      </Route>
+    </Routes>
   );
 }
 
