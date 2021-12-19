@@ -1,7 +1,6 @@
-import React, { lazy } from 'react'
-import { Routes, Route } from 'react-router-dom';
+import React, { lazy } from 'react';
+import { Route, Routes } from 'react-router-dom';
 import SimpleLayout from './layout/Simple';
-
 
 // Route-based code splitting
 // Only pool is included in the main bundle because of it's the most visited page
